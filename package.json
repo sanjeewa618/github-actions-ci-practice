@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-  "test": "jest",
-  "lint": "node lint.js",
-  "build": "node build.js"
-},
+    "test": "jest",
+    "lint": "node lint.js",
+    "build": "node build.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sanjeewa618/github-actions-ci-practice.git"
@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/sanjeewa618/github-actions-ci-practice#readme",
   "devDependencies": {
+    "@emnapi/core": "^1.11.3",
+    "@emnapi/runtime": "^1.11.3",
     "jest": "^30.5.2"
   }
 }

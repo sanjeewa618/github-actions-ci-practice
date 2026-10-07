@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: github-actions-ci-practice
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: github-actions-ci-practice
+
+  template:
+    metadata:
+      labels:
+        app: github-actions-ci-practice
+
+    spec:
+      containers:
+        - name: github-actions-ci-practice
+          image: ghcr.io/sanjeewa618/github-actions-ci-practice:latest
+          imagePullPolicy: Always

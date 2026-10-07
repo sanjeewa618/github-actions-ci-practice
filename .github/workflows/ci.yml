@@ -1,0 +1,126 @@
+name: CleanNest CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+
+  # ==========================================
+  # JOB 1 - Code Quality & Testing
+  # ==========================================
+  test:
+    name: Test Application
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # Step 1 - Get source code
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      # Step 2 - Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # Step 3 - Display environment information
+      - name: Display environment information
+        run: |
+          echo "======================================"
+          echo "       CI ENVIRONMENT INFORMATION"
+          echo "======================================"
+          echo "Operating System:"
+          uname -a
+          echo ""
+          echo "Node.js Version:"
+          node --version
+          echo ""
+          echo "NPM Version:"
+          npm --version
+          echo "======================================"
+
+      # Step 4 - Display project files
+      - name: Inspect project structure
+        run: |
+          echo "Project files:"
+          find . -maxdepth 2 -type f | sort
+
+      # Step 5 - Install dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # Step 6 - Check dependency tree
+      - name: Check installed dependencies
+        run: npm list --depth=0
+
+      # Step 7 - Run lint
+      - name: Run code quality check
+        run: npm run lint
+
+      # Step 8 - Run tests
+      - name: Run automated tests
+        run: npm test
+
+      # Step 9 - Build application
+      - name: Build application
+        run: npm run build
+
+      # Step 10 - Generate CI summary
+      - name: Generate CI summary
+        if: always()
+        run: |
+          echo "======================================"
+          echo "          CI PIPELINE SUMMARY"
+          echo "======================================"
+          echo "Repository : ${{ github.repository }}"
+          echo "Branch     : ${{ github.ref_name }}"
+          echo "Commit     : ${{ github.sha }}"
+          echo "Triggered  : ${{ github.event_name }}"
+          echo "Actor      : ${{ github.actor }}"
+          echo "======================================"
+
+  # ==========================================
+  # JOB 2 - Security Check
+  # ==========================================
+  security:
+    name: Security Check
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # Step 1 - Checkout repository
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      # Step 2 - Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # Step 3 - Install dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # Step 4 - Run security audit
+      - name: Run npm security audit
+        run: npm audit --audit-level=high
+
+      # Step 5 - Security summary
+      - name: Security scan completed
+        if: always()
+        run: |
+          echo "======================================"
+          echo "        SECURITY CHECK COMPLETED"
+          echo "======================================"
+          echo "Repository security validation finished."
+          echo "======================================"

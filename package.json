@@ -1,0 +1,26 @@
+{
+  "name": "github-actions-ci-practice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  "test": "jest",
+  "lint": "node lint.js",
+  "build": "node build.js"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sanjeewa618/github-actions-ci-practice.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/sanjeewa618/github-actions-ci-practice/issues"
+  },
+  "homepage": "https://github.com/sanjeewa618/github-actions-ci-practice#readme",
+  "devDependencies": {
+    "jest": "^30.5.2"
+  }
+}
